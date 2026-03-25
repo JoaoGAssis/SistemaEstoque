@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ESTOQUE - Sistema de Gestão</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <section id="loginView" class="view active">
+      <div class="login-wrapper">
+        <div class="login-card">
+          <div class="login-brand">
+            <h1>ESTOQUE</h1>
+            <p>Sistema de Gestão</p>
+          </div>
+
+          <form id="loginForm" class="form-grid">
+            <div class="field">
+              <label for="usuario">Usuário</label>
+              <input id="usuario" name="usuario" type="text" placeholder="Digite seu usuário" required />
+            </div>
+
+            <div class="field">
+              <label for="senha">Senha</label>
+              <div class="password-wrap">
+                <input id="senha" name="senha" type="password" placeholder="Digite sua senha" required />
+                <button type="button" id="togglePassword" class="icon-button" aria-label="Mostrar ou ocultar senha">👁</button>
+              </div>
+            </div>
+
+            <label class="remember-row">
+              <input type="checkbox" id="lembrar" />
+              <span>Lembrar-me</span>
+            </label>
+
+            <button type="submit" class="btn btn-primary btn-full">Entrar</button>
+          </form>
+
+          <button class="link-button" type="button" id="forgotPassword">Esqueceu a senha?</button>
+          <p class="login-tip">Use qualquer usuário e senha para acessar a demonstração.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboardView" class="view">
+      <header class="topbar">
+        <div class="brand-block">
+          <h2>Stock System</h2>
+          <span>Controle de Produtos, Compras e Estoque</span>
+        </div>
+
+        <nav class="nav-tabs">
+          <button class="tab-button active" data-tab="produtos">Produtos</button>
+          <button class="tab-button" data-tab="compras">Compras</button>
+          <button class="tab-button" data-tab="estoque">Estoque</button>
+        </nav>
+
+        <div class="topbar-actions">
+          <div class="user-pill">
+            <span id="currentUser">Mirim</span>
+          </div>
+          <button id="logoutBtn" class="btn btn-outline">Sair</button>
+        </div>
+      </header>
+
+      <main class="dashboard-main">
+        <section class="hero-card">
+          <div>
+            <h3 id="heroTitle">Produtos</h3>
+            <p id="heroSubtitle">Gerencie os itens cadastrados, valores e quantidades do estoque.</p>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-card">
+              <strong id="statProdutos">0</strong>
+              <span>Produtos</span>
+            </div>
+            <div class="stat-card">
+              <strong id="statCompras">0</strong>
+              <span>Compras</span>
+            </div>
+            <div class="stat-card">
+              <strong id="statEstoque">0</strong>
+              <span>Entradas</span>
+            </div>
+          </div>
+        </section>
+
+        <section id="tab-produtos" class="tab-panel active">
+          <div class="section-toolbar">
+            <button class="btn btn-success" id="addProdutoBtn">+ Adicionar</button>
+            <div class="search-box">
+              <input type="text" id="searchProdutos" placeholder="Buscar produto..." />
+              <span>🔎</span>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Nome</th>
+                  <th>Quantidade</th>
+                  <th>Valor</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="produtosTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="tab-compras" class="tab-panel">
+          <div class="section-toolbar">
+            <button class="btn btn-success" id="addCompraBtn">+ Adicionar</button>
+            <div class="search-box">
+              <input type="text" id="searchCompras" placeholder="Buscar compras..." />
+              <span>🔎</span>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Fornecedor</th>
+                  <th>Valor</th>
+                  <th>Situação</th>
+                  <th>NF-e</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="comprasTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="tab-estoque" class="tab-panel">
+          <div class="section-toolbar">
+            <button class="btn btn-success" id="addEstoqueBtn">+ Adicionar</button>
+            <div class="search-box">
+              <input type="text" id="searchEstoque" placeholder="Buscar no estoque..." />
+              <span>🔎</span>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Código</th>
+                  <th>Nome</th>
+                  <th>Quantidade Entregue</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="estoqueTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </section>
+  </div>
+
+  <div id="modalOverlay" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">Novo cadastro</h3>
+        <button id="closeModalBtn" class="icon-button" type="button">✕</button>
+      </div>
+      <form id="modalForm" class="form-grid"></form>
+    </div>
+  </div>
+
+  <template id="emptyStateTemplate">
+    <tr>
+      <td colspan="6">
+        <div class="empty-state">Nenhum registro encontrado.</div>
+      </td>
+    </tr>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
