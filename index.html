@@ -58,6 +58,8 @@
           <button class="tab-button active" data-tab="produtos">Produtos</button>
           <button class="tab-button" data-tab="compras">Compras</button>
           <button class="tab-button" data-tab="estoque">Estoque</button>
+          <button class="tab-button" data-tab="vendas">Vendas</button>
+          <button class="tab-button" data-tab="relatorio">Relatório</button>
         </nav>
 
         <div class="topbar-actions">
@@ -86,6 +88,10 @@
             <div class="stat-card">
               <strong id="statEstoque">0</strong>
               <span>Entradas</span>
+            </div>
+            <div class="stat-card">
+              <strong id="statVendas">0</strong>
+              <span>Vendas</span>
             </div>
           </div>
         </section>
@@ -162,6 +168,88 @@
                 </tr>
               </thead>
               <tbody id="estoqueTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="tab-vendas" class="tab-panel">
+          <div class="section-toolbar">
+            <button class="btn btn-success" id="addVendasBtn">+ Adicionar</button>
+            <div class="search-box">
+              <input type="text" id="searchVendas" placeholder="Buscar vendas..." />
+              <span>🔎</span>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Cliente</th>
+                  <th>Produto</th>
+                  <th>Quantidade</th>
+                  <th>Valor Total</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="vendasTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="tab-relatorio" class="tab-panel">
+          <div class="section-toolbar report-toolbar">
+            <div class="report-filters">
+              <label class="field-inline">
+                <span>Período</span>
+                <select id="reportPeriod">
+                  <option value="all">Todos</option>
+                  <option value="7">Últimos 7 dias</option>
+                  <option value="30">Últimos 30 dias</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="report-grid">
+            <div class="report-card">
+              <span>Faturamento</span>
+              <strong id="reportTotalVendas">R$ 0,00</strong>
+            </div>
+            <div class="report-card">
+              <span>Produtos vendidos</span>
+              <strong id="reportQtdVendida">0</strong>
+            </div>
+            <div class="report-card">
+              <span>Ticket médio</span>
+              <strong id="reportTicketMedio">R$ 0,00</strong>
+            </div>
+            <div class="report-card">
+              <span>Mais vendido</span>
+              <strong id="reportProdutoMaisVendido">Nenhum</strong>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-header">
+              <h4>Vendas por dia</h4>
+            </div>
+            <div id="salesChart" class="sales-chart" aria-label="Gráfico de vendas por dia"></div>
+          </div>
+
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Cliente</th>
+                  <th>Produto</th>
+                  <th>Quantidade</th>
+                  <th>Valor Total</th>
+                </tr>
+              </thead>
+              <tbody id="relatorioTableBody"></tbody>
             </table>
           </div>
         </section>
